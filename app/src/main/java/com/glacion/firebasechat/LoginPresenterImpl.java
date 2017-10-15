@@ -3,7 +3,7 @@ package com.glacion.firebasechat;
 
 import android.text.TextUtils;
 
-public class LoginPresenterImpl implements LoginPresenter,LoginModel.OnLoginFinishedListener {
+public class LoginPresenterImpl implements LoginPresenter{
 
     private LoginView loginView;
     private LoginModel loginModel;
@@ -29,25 +29,9 @@ public class LoginPresenterImpl implements LoginPresenter,LoginModel.OnLoginFini
             return;
         }
         loginView.showProgress(true);
-        loginModel.login(username,password,this);
+        loginModel.login(username,password);
     }
 
-    @Override
-    public void onCancelled() {
-        loginView.showProgress(false);
-    }
-
-    @Override
-    public void onPasswordError() {
-        loginView.showProgress(false);
-        loginView.setPasswordError(R.string.error_incorrect_password);
-    }
-
-    @Override
-    public void onSuccess() {
-        loginView.showProgress(false);
-        loginView.successAction();
-    }
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
         return email.contains("@");

@@ -2,11 +2,16 @@ package com.glacion.firebasechat;
 
 
 import android.os.AsyncTask;
-import android.widget.Toast;
+
+import com.glacion.firebasechat.event.CancelledEvent;
+import com.glacion.firebasechat.event.PasswordErrorEvent;
+import com.glacion.firebasechat.event.SuccessEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 public class LoginModelImpl implements LoginModel {
 
-    private  OnLoginFinishedListener onLoginFinishedListener;
+
     /**
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
@@ -16,8 +21,7 @@ public class LoginModelImpl implements LoginModel {
     };
 
     @Override
-    public void login(String username, String password, OnLoginFinishedListener onLoginFinishedListener){
-        this.onLoginFinishedListener = onLoginFinishedListener;
+    public void login(String username, String password){
         //Call Login Task
         new UserLoginTask(username,password).execute((Void)null);
     }
@@ -62,15 +66,15 @@ public class LoginModelImpl implements LoginModel {
         protected void onPostExecute(final Boolean success) {
 
             if (success) {
-                onLoginFinishedListener.onSuccess();
+                EventBus.getDefault().post(new SuccessEvent());
             } else {
-                onLoginFinishedListener.onPasswordError();
+                EventBus.getDefault().post(new PasswordErrorEvent());
             }
         }
 
         @Override
         protected void onCancelled() {
-            onLoginFinishedListener.onCancelled();
+            EventBus.getDefault().post(new CancelledEvent());
         }
     }
 }
