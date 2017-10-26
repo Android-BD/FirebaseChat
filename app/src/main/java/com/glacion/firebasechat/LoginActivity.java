@@ -76,11 +76,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         loginPresenter.validateCredentials(email, password);
     }
 
-
-
-    /**
-     * Shows the progress UI and hides the login form.
-     */
+    // Shows the progress UI and hides the login form.
     @Override
     public void showProgress(final boolean show) {
         int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
@@ -106,6 +102,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         });
     }
 
+    //Errors that will be shown when user enters invalid credentials
     @Override
     public void setUsernameError(int messageResId) {
         mEmailView.setError(getString(messageResId));
@@ -118,6 +115,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         mPasswordView.requestFocus();
     }
 
+    //Login result events
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onSuccessEvent(SuccessEvent successEvent) {
         showProgress(false);
@@ -136,6 +134,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     }
 
+    //EventBus implementations
     @Override
     protected void onStart() {
         super.onStart();
