@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
             }
         });
 
-        mLoginFormView = findViewById(R.id.login_form);
+        mLoginFormView = findViewById(R.id.login);
         mProgressView = findViewById(R.id.login_progress);
 
         loginPresenter = new LoginPresenterImpl(this);
